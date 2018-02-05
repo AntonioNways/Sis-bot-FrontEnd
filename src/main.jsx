@@ -16,6 +16,9 @@ class Apps extends React.Component {
     };
 
   }
+  RenderRelationList(){
+    
+  }
   render() {
     return (   
       <div className="row">
