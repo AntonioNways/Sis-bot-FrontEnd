@@ -26,25 +26,43 @@ class Apps extends React.Component {
       submit: true
     });
 
+    /**
+    * FormData creats key-value data of the form.
+    */
+
     var form = e.target;
     var formData = new FormData(form)
 
-    console.log(formData.entries())
-    for (var [key, value] of formData.entries()) { 
-      console.log(key+"="+value+"&type=message");
-      console.log('message=hi&type=message');
-      var data = key+"="+value+"&type=message";
+    //all the values with keys "message" and "type" are stored in the arrays bellow
+    var all_msgs = formData.getAll("message"); 
+    var all_types = formData.getAll("type");
+    
+    //the for-loop iterates one of the array and access both arrays at the same time
+    for(var i =0; i< all_msgs.length; i++ ){
+      /**
+      * Both array should have the same length since all the input feilds are mandatory to fill-up.
+      * If a message-input is not entered but the type is chosen, by default FormData will insert it into the array as empty string thus keeping both the arrays with same length.
+      * To create the URL-encoded format, same index number is taken from each array. Example to get the message value and it's type:-  message[2] has type[2] or message[5] has type[5]; the index value is the same.
+      */
+
+      //url-encoding is formated by the help of both arrays
+      var data = "message="+all_msgs[i]+"&type="+all_types[i];
+
+      //skip the iteration if an empty value is found for either 'type' or 'message'
+      if(all_types[i] == "" || all_msgs[i] == ""){
+        continue;
+      }
+
       fetch("http://localhost:3000/api/chats/upsert", {
         method: "POST",
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: data
-        // body: {key:value,
-              // "type":"message"},
       }).then((result) =>{
         console.log(result);
 
       });
     }
+
 
     // this.forceUpdate()
   }
@@ -58,12 +76,14 @@ class Apps extends React.Component {
           <Header />
 
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-sm-12">
               <div className="panel panel-default">
                 <table className="table" id="savedMessageTable">
                   <thead>
                     <tr>
-                      <th colSpan="2">Saved Messages</th>
+                      <th>#</th>
+                      <th >Saved Messages</th>
+                      <th>ID</th>
                       <th>Relationship</th>
                     </tr>
                   </thead>
@@ -90,20 +110,7 @@ class Apps extends React.Component {
                 </form>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="panel panel-default">
-                <table className="table">
-                  <thead>
-                    <tr colSpan="4">
-                      <th>Relationship</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <CreateRelationship />
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            
           </div>
 
           <Footer />

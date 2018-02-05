@@ -20,7 +20,14 @@ class SetMessages extends React.Component {
 
     this.state = {
       row_key_val: 1,
-      rows: [<tr key="0"><td><input type="text" name="message" className="form-control" placeholder="Enter Message"/></td><td><button type="button"  className="btn btn-success" onClick={this.cloneRow.bind(this)} >+</button></td><td><button type="button" onClick={this.removeRow.bind(this)} className="btn btn-danger" >x</button> </td></tr>]
+      rows: [<tr key="0"><td><input type="text" name="message" className="form-control" placeholder="Enter Message"/></td>
+      <td>
+        <select name="type">
+          <option value="message" >Message</option>
+          <option value="link">Link</option>
+        </select>
+      </td>
+      <td><button type="button"  className="btn btn-success" onClick={this.cloneRow.bind(this)} >+</button></td><td><button type="button" onClick={this.removeRow.bind(this)} className="btn btn-danger" >x</button> </td></tr>]
     }
 
   }

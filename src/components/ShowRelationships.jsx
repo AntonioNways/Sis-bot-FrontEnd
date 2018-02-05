@@ -4,6 +4,8 @@ import React from "react";
 *	This component class is responsible for fetching relationship of each message using a message ID. 
 *	This message ID should be passed through as an attribute when calling this Component.
 *	The ID is accessed via 'this.props.chat_id' and sent to an API end point.
+*	
+*	This Component class is also responsible for deletion & creation of a relationship
 */
 
 class ShowRelationships extends React.Component {
@@ -44,7 +46,7 @@ class ShowRelationships extends React.Component {
 		var val = elem.value;
 		var data = "origin="+this.props.chat_id+"&destination="+val;
 
-		console.log(data)
+		// console.log(data)
 		// return
 		fetch("http://localhost:3000/api/relationships/upsert", 
 				{
@@ -59,9 +61,6 @@ class ShowRelationships extends React.Component {
 		ele.preventDefault()
 		var elem = ele.target;
 
-
-		console.log(elem.value)
-		// return
 		fetch("http://localhost:3000/api/relationships/"+elem.value, { method: "DELETE" })
 		.then((res)=>{console.log(res); this.setState(this.state)})
 
@@ -69,10 +68,12 @@ class ShowRelationships extends React.Component {
 
 
 	render(){
-		console.log(this.props.all_msgs);
+		// console.log(this.props.all_msgs);
 		var all_chats = this.props.all_msgs;
 		var linked_msgs = this.state.msgs;
-		(linked_msgs.length !==0 ? linked_msgs.map((val, i)=> {console.log(val)}) : "" )
+		(linked_msgs.length !==0 ? linked_msgs.map((val, i)=> {
+			// console.log(val)
+		}) : "" )
 		return(
 			<div>
 				<label>

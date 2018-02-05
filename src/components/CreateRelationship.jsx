@@ -14,13 +14,7 @@ export default class CreateRelationship extends React.Component{
    //              </select>
 		return (
 			<tr>
-              <th>1</th>
-              <td></td>
-              <td>
-               
-              </td>
-              <td ><button className="btn btn-success">+</button></td>
-              <td ><button className="btn btn-danger" >-</button></td>
+              <td>HI</td>
             </tr>
 		)
 	}

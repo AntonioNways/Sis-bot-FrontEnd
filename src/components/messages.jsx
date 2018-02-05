@@ -35,9 +35,20 @@ class Messages extends React.Component {
       )
   }
 
+  deleteMessage(ele){
+    var elem = ele.target;
+    var val = elem.value;
+
+    fetch("http://localhost:3000/api/chats/"+val, { method: "DELETE" })
+    .then((res) => {
+      // console.log(res)
+    })
+    // console.log(val)
+  }
+
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { error, isLoaded, msgs } = this.state;
 
     if (error) {
@@ -54,8 +65,9 @@ class Messages extends React.Component {
       return (
         msgs.map( (msg, i) => 
           <tr key={i}>
-            <th>{i+1}</th>
-            <td>{msg.message}</td>
+            <th></th>
+            <td>{msg.message}<button value={msg.id} onClick={this.deleteMessage.bind(this)}>X</button></td>
+            <td>{msg.id}</td>
             <td><ShowRelationships all_msgs={this.state.msgs} chat_id={msg.id} /></td>
           </tr>
         )
