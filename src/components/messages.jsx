@@ -38,10 +38,13 @@ class Messages extends React.Component {
   deleteMessage(ele){
     var elem = ele.target;
     var val = elem.value;
+    var tr = elem.parentNode.parentNode;
 
     fetch("http://localhost:3000/api/chats/"+val, { method: "DELETE" })
     .then((res) => {
-      // console.log(res)
+      console.log(res)
+      //remove the row if it is DELETE was success 200
+      if(res.status == 200) tr.remove();
     })
     // console.log(val)
   }
