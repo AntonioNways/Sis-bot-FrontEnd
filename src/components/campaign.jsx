@@ -11,7 +11,8 @@ class Campaign extends React.Component {
   }
 
   Test(x){
-    console.log(x)
+    console.log(x);
+    console.log("running")
   }
   render() {
     

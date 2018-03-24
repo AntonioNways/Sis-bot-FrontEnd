@@ -3,3 +3,23 @@
     top : 100px;
     left : 900px;
 }
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+.profile-hover { 
+    display: none; 
+    position: relative;
+    top: 0
+    left: 0;
+    z-index: 99;
+    border: 1px solid #333;
+    background: #eee;
+    width: 300px;
+    text-align: center;
+}
+a:hover + div { display: block; }
