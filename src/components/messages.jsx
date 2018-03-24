@@ -17,7 +17,7 @@ class Messages extends React.Component {
 
   //for ajax calls
   componentDidMount() {
-    fetch("http://localhost:3000/api/chats", {headers: {"x-auth": "lNPZ0fRmz2pxcMDq5KTGQ51MKq8ilm0BQHg0oeN0w77+KbPMTkL3A4pR4ErCGE9tPeCBgAieF1pljchuHQWTTQ=="}})
+    fetch("http://localhost:3000/api/chats", {headers: {"x-auth": "bs7xcpkBWBeeVDnAOLeo6U2QCihAx6jUuPZ6Ot7Xhg9krNDtcAVjRlxxrEbl7B+JtUhbTkV/BjPX/8pmAfQS3Q=="}})
       .then(res => res.json())
       .then(
         (result) => {
