@@ -35,6 +35,7 @@ class Messages extends React.Component {
       )
   }
 
+
   deleteMessage(ele){
     var elem = ele.target;
     var val = elem.value;
@@ -63,7 +64,7 @@ class Messages extends React.Component {
       return <tr><td>Loading...</td></tr>;
 
     } else {
-      
+
       // <p key={i}>{msg.type}</p> 
       return (
         msgs.map( (msg, i) => 
