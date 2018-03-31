@@ -46,8 +46,8 @@ class ShowRelationships extends React.Component {
 		var val = elem.value;
 		var data = "origin="+this.props.chat_id+"&destination="+val;
 
-		// console.log(data)
-		// return
+		//  console.log(this.props.chat_id, "val=",val)
+		//  return
 		fetch("http://localhost:3000/api/relationships/upsert", 
 				{
 					method: "POST",
@@ -85,6 +85,9 @@ class ShowRelationships extends React.Component {
 				}</label>
 				<select onChange={this.submitRelationship.bind(this)}>
 					{ all_chats.map( (val, i) => {
+						if(val.id==this.props.chat_id){
+							return
+						}
 						return <option key={i}>{val.id}</option>
 					} ) }
 				</select>
