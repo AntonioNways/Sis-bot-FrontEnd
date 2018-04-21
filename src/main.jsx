@@ -17,16 +17,35 @@ class Apps extends React.Component {
       msgRelation:[{id:1, origin:1, destination:2},
                   {id:2, origin: 2, destination:3}],
       SelectedCampaign: 1,
-      submit: false
+      submit: false,
+      error: null,
+      isLoaded: false,
+      msgs: []
     };
+    this.updateList = this.updateList.bind(this);
 
+  }
+  componentDidMount() {
+    fetch("http://localhost:3000/api/chats", {headers: {"x-auth": "bs7xcpkBWBeeVDnAOLeo6U2QCihAx6jUuPZ6Ot7Xhg9krNDtcAVjRlxxrEbl7B+JtUhbTkV/BjPX/8pmAfQS3Q=="}})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            msgs: result
+          })
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error: error
+          })
+        }
+      )
   }
 
   submitHandler(e){
     e.preventDefault();
-    this.setState({
-      submit: true
-    });
 
     /**
     * FormData creats key-value data of the form.
@@ -64,9 +83,36 @@ class Apps extends React.Component {
 
       });
     }
-
-
+    if(this.state.submit){
+      this.setState({
+        submit: true,
+      });
+    }else{
+      this.setState({
+        submit: false,
+      });
+    }  
+    this.updateList()
     // this.forceUpdate()
+  }
+  
+  updateList(){
+    fetch("http://localhost:3000/api/chats", {headers: {"x-auth": "bs7xcpkBWBeeVDnAOLeo6U2QCihAx6jUuPZ6Ot7Xhg9krNDtcAVjRlxxrEbl7B+JtUhbTkV/BjPX/8pmAfQS3Q=="}})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            msgs: result
+          })
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error: error
+          })
+        }
+      )
   }
 
 
@@ -90,7 +136,7 @@ class Apps extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <Messages />
+                    <Messages parentState={this.state} updateList={this.updateList}/>
                   </tbody>
                 </table>
               </div>
@@ -110,6 +156,7 @@ class Apps extends React.Component {
                     </tbody>
                   </table>
                 </form>
+                <button className="btn btn-info" onClick={this.updateList}>State</button>
               </div>
             </div>
             

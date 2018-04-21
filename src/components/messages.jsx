@@ -16,43 +16,31 @@ class Messages extends React.Component {
   }
 
   //for ajax calls
-  componentDidMount() {
-    fetch("http://localhost:3000/api/chats", {headers: {"x-auth": "bs7xcpkBWBeeVDnAOLeo6U2QCihAx6jUuPZ6Ot7Xhg9krNDtcAVjRlxxrEbl7B+JtUhbTkV/BjPX/8pmAfQS3Q=="}})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            msgs: result
-          })
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error: error
-          })
-        }
-      )
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLoaded: true,
+      msgs: nextProps.parentState.msgs
+    })
   }
-
 
   deleteMessage(ele){
     var elem = ele.target;
     var val = elem.value;
-    var tr = elem.parentNode.parentNode;
+    //var tr = elem.parentNode.parentNode;
 
     fetch("http://localhost:3000/api/chats/"+val, { method: "DELETE" })
     .then((res) => {
       console.log(res)
+      this.props.updateList();
       //remove the row if it is DELETE was success 200
-      if(res.status == 200) tr.remove();
+      //if(res.status == 200) tr.remove();
     })
     // console.log(val)
   }
 
 
   render() {
-    // console.log(this.state);
+    // console.log(this.props.parentState.msgs);
     const { error, isLoaded, msgs } = this.state;
 
     if (error) {

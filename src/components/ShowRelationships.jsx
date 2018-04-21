@@ -15,7 +15,7 @@ class ShowRelationships extends React.Component {
 		this.state = {
 			isLoaded: false,
 			error: null,
-			msgs: [], //relationship messages
+			msgs: [], //relationship messages,
 
 		}
 	}
@@ -71,6 +71,7 @@ class ShowRelationships extends React.Component {
 		// console.log(this.props.all_msgs);
 		var all_chats = this.props.all_msgs;
 		var linked_msgs = this.state.msgs;
+		var linkList={};
 		(linked_msgs.length !==0 ? linked_msgs.map((val, i)=> {
 			// console.log(val)
 		}) : "" )
@@ -79,13 +80,14 @@ class ShowRelationships extends React.Component {
 				<label>
 				{ (linked_msgs.length !==0 ?  linked_msgs.map((val, i)=> {
 					var a = val.destination_id;
+					linkList[a]=true;
 					return <button type="button" value={val.id} onClick={this.deleteRelationship.bind(this)} key={i}>{a}</button>
 				}) : "" )
 
 				}</label>
 				<select onChange={this.submitRelationship.bind(this)}>
 					{ all_chats.map( (val, i) => {
-						if(val.id==this.props.chat_id){
+						if(val.id==this.props.chat_id||val.id in linkList){
 							return
 						}
 						return <option key={i}>{val.id}</option>
